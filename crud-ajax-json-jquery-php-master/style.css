@@ -1,13 +1,29 @@
 * {
   box-sizing: border-box;
-}
-body {
   margin: 0;
   padding: 0;
-  background-image: url("images/geo-back.jpg");
+}
+body {
   font-family: "Droid Sans", sans-serif;
 }
-
+.back {
+  background-image: url("images/geo-back.jpg");
+  background-repeat: no-repeat;
+  position: fixed;
+  z-index: -1;
+  width: 100vw;
+  height: 100vh;
+}
+.back::after {
+  content: "";
+  background-color: #ffffff4d;
+  position: absolute;
+  left: 17px;
+  top: 0;
+  right: 34px;
+  height: 100vh;
+  border-radius: 10px;
+}
 header {
   box-shadow: -1px 1px 20px 1px black;
 }
@@ -26,9 +42,11 @@ li {
   text-shadow: 1px 1px 5px rgb(0 0 0);
   color: white;
   transition: 0.5s;
+  cursor: pointer;
 }
+
 li:hover {
-  transform: scale(1.2, 1.2);
+  transform: scale(1.1, 1.1);
 }
 
 .heading {
