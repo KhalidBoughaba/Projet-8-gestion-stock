@@ -1,7 +1,7 @@
 <?php
-$dbh = new PDO("mysql:host=localhost;dbname=schoolstd","root","root");
+$dbh = new PDO("mysql:host=localhost;dbname=schoolstd","root","Khalid167995");
 $sql = " SELECT * FROM schoolstudents ";
 $studentsQuery = $dbh->query($sql);
 $getStudents = $studentsQuery->fetchAll(PDO::FETCH_ASSOC);
-print_r(json_encode($getStudents));
+echo(json_encode($getStudents));
 ?>

@@ -1,15 +1,27 @@
 $(document).ready(function(){
-var studentsList;
+var studentsList,
+    std = document.querySelector('.studentsList');
+
 function getall() {
   $(".studentsList").html(" ");
   $.ajax({
     url:"../api/getStudents.php",
     method:"GET",
     success:function(data) {
+      std.innerHTML = `<tr>
+      <th>ID</th>
+      <th>Libellé</th>
+      <th>Prix</th>
+      <th><span class="update-btn">update</span><span class="delete-btn">delete</span><input type="hidden" value="" class="stdID"></th>
+    </tr>`
       studentsList = JSON.parse(data);
-      console.log(studentsList);
       for (var i = 0; i < studentsList.length; i++) {
-        $(".studentsList").append('<li><h2>'+"Name: "+studentsList[i]["name"]+'</h2><h3>'+"FatherName: "+studentsList[i]["fathername"]+'</h3><h4>'+"Rollno: "+studentsList[i]["rollno"]+'</h4><h5>'+"Degree: "+studentsList[i]["degree"]+'</h5><h6>'+"Branch: "+studentsList[i]["branch"]+'</h6><span class="update-btn">update</span><span class="delete-btn">delete</span><input type="hidden" value="" class="stdID"></li>');
+        std.innerHTML +=`<tr>
+        <td>${studentsList[i]["name"]}</td>
+        <td>${studentsList[i]["fathername"]}</td>
+        <td>${studentsList[i]["rollno"]}</td>
+        <td>${studentsList[i]["degree"]}</td>
+        </tr>`;
       }
     }
   })
