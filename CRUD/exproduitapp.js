@@ -1,14 +1,14 @@
     $(document).ready(function(){
         var exproduitList,
-            std = document.querySelector('.exproduitList');
+            myTable = document.querySelector('.exproduitList');
         
         function getall() {
-            std.innerHTML="";
+            myTable.innerHTML="";
         $.ajax({
             url:"api/getExtincteur.php",
             method:"GET",
             success:function(data) {
-            std.innerHTML = `<tr>
+            myTable.innerHTML = `<tr>
             <th>ID</th>
             <th>Titre</th>
             <th>Type</th>
@@ -18,7 +18,7 @@
             console.log(data);
             exproduitList = JSON.parse(data);
             for (var i = 0; i < exproduitList.length; i++) {
-                std.innerHTML +=`<tr idoftr='${exproduitList[i]["id"]}'>
+                myTable.innerHTML +=`<tr idoftr='${exproduitList[i]["id"]}'>
                 <td>${exproduitList[i]["id"]}</td>
                 <td>${exproduitList[i]["titre"]}</td>
                 <td>${exproduitList[i]["type"]}</td>
@@ -41,27 +41,27 @@ document.querySelector('.submit-exproduit').onclick = ()=>{
         type,
         prix;
 
-   name = document.querySelector('.exproduitName').value;
-   type = document.querySelector('.exproduitType').value;
-   prix = document.querySelector('.exproduitPrix').value;
+    name = document.querySelector('.exproduitName').value;
+    type = document.querySelector('.exproduitType').value;
+    prix = document.querySelector('.exproduitPrix').value;
 
-   $.ajax({
-       url : 'api/addExtincteur.php',
-       type : 'post',
-       data : {
-        titre : name,
-        type : type,
-        prix : prix
-       },
-       datatype: JSON,
-       success: (data)=>{
+    $.ajax({
+        url : 'api/addExtincteur.php',
+        type : 'post',
+        data : {
+            titre : name,
+            type : type,
+            prix : prix
+        },
+        datatype: JSON,
+        success: (data)=>{
         document.querySelector('.exproduitName').value = ""
         document.querySelector('.exproduitType').value = ""
         document.querySelector('.exproduitPrix').value = ""
         getall()
-       }
+        }
 
-   })
+})
 
 }
 
@@ -109,8 +109,46 @@ function edit(){
             let prix
 
 
+            let editTitre
+            let editType
+            let editPrix
+
+
+            
+
+
+// 
+deletedE= null
+ deletedEID=null
+ editBtn=null
+cancelEditBtn=null
+name=null
+type=null
+prix=null
+
+
+editTitre=null
+editType=null
+editPrix=null
+
+
+
+
+
+
             deletedE = e.target;
             deletedE = deletedE.closest('tr')
+            editTitre = deletedE.querySelectorAll('td')[1].textContent
+            editType = deletedE.querySelectorAll('td')[2].textContent
+            editPrix = deletedE.querySelectorAll('td')[3].textContent
+
+
+            document.querySelector('.exproduitName').value = editTitre
+            document.querySelector('.exproduitType').value = editType
+            document.querySelector('.exproduitPrix').value = editPrix
+
+            console.log(editTitre)
+
             deletedEID = deletedE.getAttribute("idoftr")
             console.log(deletedEID)
             editBtn = document.querySelector('.edit-exproduit')
@@ -132,34 +170,34 @@ function edit(){
                     url : 'api/edit.php',
                     type : 'post',
                     data : {
-                     id : deletedEID,
-                     titre : name,
-                     type : type,
-                     prix : prix
+                    id : deletedEID,
+                    titre : name,
+                    type : type,
+                    prix : prix
                     },
                     datatype: JSON,
                     success: (data)=>{
-                     console.log(data)
+                    console.log(data)
 
-                     document.querySelector('.exproduitName').value = ""
-                     document.querySelector('.exproduitType').value = ""
-                     document.querySelector('.exproduitPrix').value = ""
+                    document.querySelector('.exproduitName').value = ""
+                    document.querySelector('.exproduitType').value = ""
+                    document.querySelector('.exproduitPrix').value = ""
 
-                     editBtn.style = 'display:none';
-                     cancelEditBtn.style = 'display:none';
-                     document.querySelector('.submit-exproduit').style = 'display:block';
+                    editBtn.style = 'display:none';
+                    cancelEditBtn.style = 'display:none';
+                    document.querySelector('.submit-exproduit').style = 'display:block';
 
-                     name = undefined;
-                     type = undefined
-                     prix = undefined
-                     deletedE = undefined
-                     deletedEID = undefined
-                     editBtn = undefined
-                     cancelEditBtn = undefined
+                    name = undefined;
+                    type = undefined
+                    prix = undefined
+                    deletedE = undefined
+                    deletedEID = undefined
+                    editBtn = undefined
+                    cancelEditBtn = undefined
 
-                     getall()
+                    getall()
                     }
-             
+
                 })
                 
             }
@@ -167,25 +205,25 @@ function edit(){
 
             cancelEditBtn.onclick = ()=>{
 
-       
-                     document.querySelector('.exproduitName').value = ""
-                     document.querySelector('.exproduitType').value = ""
-                     document.querySelector('.exproduitPrix').value = ""
-                     editBtn.style = 'display:none';
-                     cancelEditBtn.style = 'display:none';
-                     document.querySelector('.submit-exproduit').style = 'display:block';
 
-                     name = undefined;
-                     type = undefined
-                     prix = undefined
-                     deletedE = undefined
-                     deletedEID = undefined
-                     editBtn = undefined
-                     cancelEditBtn = undefined
+                    document.querySelector('.exproduitName').value = ""
+                    document.querySelector('.exproduitType').value = ""
+                    document.querySelector('.exproduitPrix').value = ""
+                    editBtn.style = 'display:none';
+                    cancelEditBtn.style = 'display:none';
+                    document.querySelector('.submit-exproduit').style = 'display:block';
+
+                    name = undefined;
+                    type = undefined
+                    prix = undefined
+                    deletedE = undefined
+                    deletedEID = undefined
+                    editBtn = undefined
+                    cancelEditBtn = undefined
             }
 
-         
-         }
+        
+        }
     });
 
 }
