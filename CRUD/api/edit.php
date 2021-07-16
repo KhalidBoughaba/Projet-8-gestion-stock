@@ -7,7 +7,7 @@ $prix = $_POST['prix'];
 
 
 $con = new PDO ("mysql:host=localhost;dbname=extincteur","root","");
-$querySql = "UPDATE exproduit SET titre = '$titre', type = '$type', prix = '$prix' WHERE id = '$id' ";
+$querySql = "UPDATE product SET titre = '$titre', type = '$type', prix = '$prix' WHERE id = '$id' ";
 
 $aplySQL = $con -> prepare($querySql);
 $aplySQL -> execute();

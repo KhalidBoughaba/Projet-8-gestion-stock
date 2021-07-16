@@ -1,6 +1,6 @@
 <?php
 $dbh = new PDO("mysql:host=localhost;dbname=extincteur","root","");
-$sql = " INSERT INTO exproduit(titre,type,prix) VALUES (:titre,:type,:prix)";
+$sql = " INSERT INTO product(titre,type,prix) VALUES (:titre,:type,:prix)";
 $addStudentsQuery = $dbh->prepare($sql);
 $addStudentsQuery->bindParam(":titre",$_POST["titre"],PDO::PARAM_STR);
 $addStudentsQuery->bindParam(":type",$_POST["type"],PDO::PARAM_STR);
